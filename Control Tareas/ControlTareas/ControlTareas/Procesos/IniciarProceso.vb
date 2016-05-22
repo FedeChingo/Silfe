@@ -27,17 +27,16 @@
 
         'CARGO EL COMBO BOX CON LAS TAREAS. LLAMO A LA FUNCION LISTADOTAREA
         ListTarea = FUNCIONES.ListadoTarea
-        cmbTareas.DataSource = ListTarea        'ASIGNO LAS PROPIEDADES 
-        cmbTareas.DisplayMember = "detalle"
+        cmbTareas.DataSource = ListTarea 'ASIGNO LAS PROPIEDADES
         cmbTareas.ValueMember = "id"
+        cmbTareas.DisplayMember = "detalle"
 
 
         'CARGO EL COMBO BOX CON LOS USUARIOS. LLAMO A LA FUNCION LISTADOUSUARIO
         listOpeario = FUNCIONES.ListadoOperario
         cmbListOperario.DataSource = listOpeario        'ASIGNO LAS PROPIEDADES
-        cmbListOperario.DisplayMember = "usuario"
         cmbListOperario.ValueMember = "id"
-
+        cmbListOperario.DisplayMember = "usuario"
 
         'COLOCAR FECHA Y HORA EN LOS TEXTBOX
         txtFecha.Text = Format(Now(), "dd/mm/yy")
@@ -46,27 +45,24 @@
         'CARGO EL DATAGRIDVIEW
         ArmarDataUsuario()
 
-
-
-
     End Sub
 
     Private Sub AgregarOperador()
         Dim newCustomersRow As DataRow = dtUsuario.NewRow()
 
         newCustomersRow("id") = cmbListOperario.SelectedValue
-        newCustomersRow("user") = cmbListOperario.SelectedItem
-
-
-
+        newCustomersRow("user") = DirectCast(cmbListOperario.SelectedItem, DataRowView).Item("usuario").ToString()
 
 
         dtUsuario.Rows.Add(newCustomersRow)
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
         AgregarOperador()
         dataGridOperador.Update()
 
     End Sub
+
+
 End Class

@@ -2,7 +2,7 @@
 
     Function ListadoTarea() As DataTable
 
-        Return conexion.ConsultaSQL("Select * from Tarea order by detalle").Tables(0)
+        Return conexion.ConsultaSQL("Select * from tarea order by detalle").Tables(0)
 
     End Function
 
