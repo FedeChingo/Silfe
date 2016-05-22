@@ -3,7 +3,7 @@
 
 Module conexion
 
-    Public cadenaconexion As String = "Data Source=SILFE-PC\SQLEXPRESS;Initial Catalog=SILFE_2;Persist Security Info=True;User ID=sa;Password=Fede7122"
+    Private cadenaconexion As String = "Data Source=SILFE-PC\SQLEXPRESS;Initial Catalog=SILFE_2;Persist Security Info=True;User ID=sa;Password=Fede7122"
 
 
     Public Function ConsultaSQL(ByRef consulta As String) As DataSet
@@ -30,7 +30,7 @@ Module conexion
 
     End Function
 
-    Sub ActualizarSQL(ByRef sql As String)
+    Public Function ActualizarSQL(ByRef sql As String) As Boolean
 
         Dim cnn As New SqlConnection
         Dim da As New SqlDataAdapter
@@ -43,12 +43,13 @@ Module conexion
             da = New SqlDataAdapter(sql, cnn)
             da.Fill(ds)
             cnn.Close()
-            MsgBox("Se realizó la actualización con éxito")
+            ' MsgBox("Se realizó la actualización con éxito")
+            Return True
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
-
+            Return False
         End Try
 
-    End Sub
+    End Function
 
 End Module

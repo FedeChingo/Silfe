@@ -33,6 +33,7 @@ Partial Class IniciarProceso
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.dataGridOperador = New System.Windows.Forms.DataGridView()
+        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.dataGridOperador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -142,12 +143,22 @@ Partial Class IniciarProceso
         Me.dataGridOperador.Size = New System.Drawing.Size(381, 150)
         Me.dataGridOperador.TabIndex = 11
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(433, 180)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 12
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'IniciarProceso
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(536, 338)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.dataGridOperador)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.cmbListOperario)
@@ -187,4 +198,5 @@ Partial Class IniciarProceso
     Friend WithEvents Label4 As Label
     Friend WithEvents Button2 As Button
     Friend WithEvents dataGridOperador As DataGridView
+    Friend WithEvents Button3 As Button
 End Class

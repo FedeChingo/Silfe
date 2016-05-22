@@ -39,7 +39,7 @@
         cmbListOperario.DisplayMember = "usuario"
 
         'COLOCAR FECHA Y HORA EN LOS TEXTBOX
-        txtFecha.Text = Format(Now(), "dd/mm/yy")
+        txtFecha.Text = Format(Now(), "dd/MM/yy")
         txtHora.Text = Format(Now(), "hh:mm tt")
 
         'CARGO EL DATAGRIDVIEW
@@ -64,5 +64,40 @@
 
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
 
+        'VALIDAR LA HORA 
+        If IsDate(txtHora.Text) = False Then
+            MsgBox("Hora No válida", vbCritical, "SIL-FE")
+            Exit Sub
+        Else
+            txtHora.Text = CDate(txtHora.Text)
+        End If
+
+        'VALIDAR ID_TAREA Y CREO VARIABLE PARA GUARDAR
+        Dim id_tarea As Integer = cmbTareas.SelectedValue
+
+        'VALIDAR FECHA
+        If IsDate(txtFecha.Text) = False Then
+            MsgBox("Fecha No válida", vbCritical, "SIL-FE")
+            Exit Sub
+        Else
+            txtFecha.Text = CDate(txtFecha.Text)
+        End If
+
+        'CALCULO EL ULTIMO REGISTRO
+        Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id_proceso", "proceso") + 1
+
+        conexion.ActualizarSQL(FUNCIONES.CargarProceso(UltimoRegistro, id_tarea, txtHora.Text, "00:00", txtFecha.Text, txtFecha.Text, 0, 1))
+
+        For i As Integer = 0 To (dtUsuario.Rows.Count - 1)
+            Dim usuario = dtUsuario.Rows(i).Item("id")
+
+            conexion.ActualizarSQL(FUNCIONES.CargarProcesoUsuario(UltimoRegistro, usuario, txtHora.Text, "00:00", txtFecha.Text, txtFecha.Text, "0"))
+        Next
+
+
+
+
+    End Sub
 End Class
