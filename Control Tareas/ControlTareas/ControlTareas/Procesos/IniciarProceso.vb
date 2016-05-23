@@ -34,7 +34,7 @@
 
         'CARGO EL COMBO BOX CON LOS USUARIOS. LLAMO A LA FUNCION LISTADOUSUARIO
         listOpeario = FUNCIONES.ListadoOperario
-        cmbListOperario.DataSource = listOpeario        'ASIGNO LAS PROPIEDADES
+        cmbListOperario.DataSource = dtoperador        'ASIGNO LAS PROPIEDADES
         cmbListOperario.ValueMember = "id"
         cmbListOperario.DisplayMember = "usuario"
 
@@ -44,6 +44,8 @@
 
         'CARGO EL DATAGRIDVIEW
         ArmarDataUsuario()
+
+        CambiarColorBoton()
 
     End Sub
 
@@ -55,7 +57,21 @@
 
 
         dtUsuario.Rows.Add(newCustomersRow)
+
+        CambiarColorBoton()
+
     End Sub
+
+    Private Sub CambiarColorBoton()
+        If dtUsuario.Rows.Count > 0 Then
+            btnCargar.Enabled = True
+            btnCargar.BackColor = Color.Green
+        Else
+            btnCargar.Enabled = False
+            btnCargar.BackColor = Color.Red
+        End If
+    End Sub
+
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
@@ -64,8 +80,7 @@
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-
+    Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
         'VALIDAR LA HORA 
         If IsDate(txtHora.Text) = False Then
             MsgBox("Hora No válida", vbCritical, "SIL-FE")
@@ -96,7 +111,12 @@
             conexion.ActualizarSQL(FUNCIONES.CargarProcesoUsuario(UltimoRegistro, usuario, txtHora.Text, "00:00", txtFecha.Text, txtFecha.Text, "0"))
         Next
 
+    End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        dtUsuario.Clear()
+        dataGridOperador.Refresh()
+        CambiarColorBoton()
 
 
     End Sub

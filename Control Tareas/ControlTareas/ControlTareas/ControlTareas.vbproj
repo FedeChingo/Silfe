@@ -72,8 +72,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conexion\conexion.vb" />
-    <Compile Include="Conexion\FUNCIONES.vb" />
+    <Compile Include="Archivos\conexion.vb" />
+    <Compile Include="Archivos\FUNCIONES.vb" />
+    <Compile Include="Archivos\Varialbes.vb" />
     <Compile Include="Inicio.vb">
       <SubType>Form</SubType>
     </Compile>
