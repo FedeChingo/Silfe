@@ -22,28 +22,16 @@ Partial Class Listado
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.DatagridTareasActivas = New System.Windows.Forms.DataGridView()
         Me.DatagridTareasPausa = New System.Windows.Forms.DataGridView()
-        CType(Me.DatagridTareasActivas, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DatagridTareasPausa, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'DatagridTareasActivas
-        '
-        Me.DatagridTareasActivas.AllowUserToAddRows = False
-        Me.DatagridTareasActivas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DatagridTareasActivas.Location = New System.Drawing.Point(12, 59)
-        Me.DatagridTareasActivas.Name = "DatagridTareasActivas"
-        Me.DatagridTareasActivas.RowHeadersVisible = False
-        Me.DatagridTareasActivas.Size = New System.Drawing.Size(894, 210)
-        Me.DatagridTareasActivas.TabIndex = 8
         '
         'DatagridTareasPausa
         '
         Me.DatagridTareasPausa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DatagridTareasPausa.Location = New System.Drawing.Point(10, 314)
+        Me.DatagridTareasPausa.Location = New System.Drawing.Point(10, 172)
         Me.DatagridTareasPausa.Name = "DatagridTareasPausa"
-        Me.DatagridTareasPausa.Size = New System.Drawing.Size(896, 227)
+        Me.DatagridTareasPausa.Size = New System.Drawing.Size(896, 369)
         Me.DatagridTareasPausa.TabIndex = 9
         '
         'Listado
@@ -52,15 +40,12 @@ Partial Class Listado
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(931, 587)
         Me.Controls.Add(Me.DatagridTareasPausa)
-        Me.Controls.Add(Me.DatagridTareasActivas)
         Me.Name = "Listado"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Listado"
-        CType(Me.DatagridTareasActivas, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DatagridTareasPausa, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents DatagridTareasActivas As DataGridView
     Friend WithEvents DatagridTareasPausa As DataGridView
 End Class

@@ -6,8 +6,6 @@
 
     Private dtUsuario As DataTable 'VARIABLE PARA GUARDAR LOS DATOS DE LOS USUARIOS
 
-
-
     Private Sub IniciarProceso_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'CARGO EL COMBO BOX CON LAS TAREAS. LLAMO A LA FUNCION LISTADOTAREA
@@ -33,12 +31,6 @@
         CambiarColorBoton()
 
         AgregarOperador()
-
-
-        'ARMO DTTAREAS PENDIENTES PARA VISUALIZAR LAS TAREAS QUE TIENE ESE USUARIO
-
-
-
 
     End Sub
 
@@ -110,16 +102,17 @@
 
 
 
-        conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, ""))
+        conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, "", txtFecha.Text, "", "1"))
         'id proceso cargado 
+
         Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id", "procesos")
 
         For i As Integer = 0 To (dtUsuario.Rows.Count - 1)
             Dim usuario = dtUsuario.Rows(i).Item("id")
 
-            conexion.ActualizarSQL(FUNCIONES.CargaUsuario(UltimoRegistro, usuario, "", 0))
+            'conexion.ActualizarSQL(FUNCIONES.CargaUsuario(UltimoRegistro, usuario, "", 0))
 
-            conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", ""))
+            conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", "", "00:00", "", 0))
 
         Next
 

@@ -13,11 +13,11 @@
 
     End Function
 
-    Function CargarProceso(ByVal id_tarea As String, ByVal cantidad As String, ByVal notas As String) As String
+    Function CargarProceso(ByVal id_tarea As String, ByVal cantidad As String, ByVal notas As String, ByVal fechaini As String, ByVal fechafin As String, ByVal estado As String) As String
 
         Try
-            Dim cadena As String = "INSERT INTO procesos (detalle, cantidad, notas)" &
-                                " VALUES ('" & id_tarea & "','" & cantidad & "','" & notas & "')"
+            Dim cadena As String = "INSERT INTO procesos (detalle, cantidad, notas, fechaini, fechafin, estado)" &
+                                " VALUES ('" & id_tarea & "','" & cantidad & "','" & notas & "','" & fechaini & "','" & fechafin & "','" & estado & "')"
             Return cadena
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -38,10 +38,10 @@
 
     End Function
 
-    Function CargaProcesoEstado(ByVal id_proceso As String, ByVal id_usuario As String, ByVal Hora As String, ByVal fecha As String, ByVal estado As String, ByVal notas As String) As String
+    Function CargaProcesoEstado(ByVal id_proceso As String, ByVal id_usuario As String, ByVal Hora As String, ByVal fecha As String, ByVal estado As String, ByVal notas As String, ByVal Horafin As String, ByVal Fechafin As String, ByVal cantidad As String) As String
         Try
-            Dim cadena As String = "INSERT INTO ProcesoEstado(id_proceso, id_usuario, Hs, fecha, estado, notas)" &
-                                " VALUES ('" & id_proceso & "','" & id_usuario & "','" & Hora & "','" & fecha & "','" & estado & "','" & notas & "')"
+            Dim cadena As String = "INSERT INTO ProcesoEstado(id_proceso, id_usuario, Hsini, fechaini, estado, notas, hsfin, fechafin, cantidad)" &
+                                " VALUES ('" & id_proceso & "','" & id_usuario & "','" & Hora & "','" & fecha & "','" & estado & "','" & notas & "','" & Horafin & "','" & Fechafin & "','" & cantidad & "')"
             Return cadena
         Catch ex As Exception
             MsgBox(ex.ToString)
