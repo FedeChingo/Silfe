@@ -1,16 +1,22 @@
 ﻿Public Class Inicio
 
-
-
     Private Sub Inicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dtoperador = New DataTable
-        dtoperador = FUNCIONES.ListadoOperario
+
 
         cmbListOperador.DataSource = dtoperador
-        cmbListOperador.DisplayMember = "usuario"
+        cmbListOperador.DisplayMember = "Operador"
         cmbListOperador.ValueMember = "id"
 
     End Sub
 
+    Private Sub btnIngreso_Click(sender As Object, e As EventArgs) Handles btnIngreso.Click
+        id_operador = cmbListOperador.SelectedValue
+        'MsgBox(cmbListOperador.SelectedItem)
+        'MsgBox(cmbListOperador.SelectedValue)
 
+        'Listado.ShowDialog()
+        'Tareas.Show()
+        IniciarProceso.Show()
+
+    End Sub
 End Class

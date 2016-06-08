@@ -2,34 +2,53 @@
 
     Function ListadoTarea() As DataTable
 
-        Return conexion.ConsultaSQL("Select * from tarea order by detalle").Tables(0)
+        'tareas: son las tareas de los procesos.
+        Return conexion.ConsultaSQL("Select * from tareas order by detalle").Tables(0)
 
     End Function
 
     Function ListadoOperario() As DataTable
 
-        Return conexion.ConsultaSQL("Select * from usuario order by usuario").Tables(0)
+        Return conexion.ConsultaSQL("Select * from operador order by operador").Tables(0)
 
     End Function
 
-    Function CargarProceso(ByVal id_proceso As String, ByVal id_actividad As String, ByVal hora_inicio As String, ByVal hora_fin As String,
-                           ByVal fecha_inicio As Date, ByVal fecha_fin As Date, ByVal cantidad As String, ByVal estado As String) As String
+    Function CargarProceso(ByVal id_tarea As String, ByVal cantidad As String, ByVal notas As String) As String
 
-
-        Dim cadena As String = "INSERT INTO proceso (id_proceso, id_tarea, horainicio, horafin, fechainicio, fechafin, cantidad, estado)" &
-                                " VALUES ('" & id_proceso & "','" & id_actividad & "','" & hora_inicio & "','" & hora_fin & "'," &
-                                "'" & fecha_inicio & "','" & fecha_fin & "','" & cantidad & "','" & estado & "')"
-
-        Return cadena
-
+        Try
+            Dim cadena As String = "INSERT INTO procesos (detalle, cantidad, notas)" &
+                                " VALUES ('" & id_tarea & "','" & cantidad & "','" & notas & "')"
+            Return cadena
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            Return ""
+        End Try
 
     End Function
 
-    Function CargarProcesoUsuario(ByVal id_proceso As String, ByVal id_usuario As String, ByVal hora_inicio As String, ByVal hora_fin As String, ByVal fecha_incio As String, ByVal fecha_fin As String, ByVal cantidad As String) As String
+    Function CargaUsuario(ByVal id_proceso As String, ByVal id_usuario As String, ByVal notas As String, ByVal cantidad As String) As String
+        Try
+            Dim cadena As String = "INSERT INTO ProcesoUsuario (id_proceso, id_usuario, notas, cantidad)" &
+                                " VALUES ('" & id_proceso & "','" & id_usuario & "','" & notas & "','" & cantidad & "')"
+            Return cadena
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            Return ""
+        End Try
 
-        Dim cadena As String = "INSERT INTO ProcesoUsuario (id_proceso, id_usuario, horainicio, horafin, fechainicio, fechafin, cantidad)" &
-                                " VALUES ('" & id_proceso & "','" & id_usuario & "','" & hora_inicio & "','" & hora_fin & "','" & fecha_incio & "','" & fecha_fin & "','" & cantidad & "')"
-        Return cadena
+    End Function
+
+    Function CargaProcesoEstado(ByVal id_proceso As String, ByVal id_usuario As String, ByVal Hora As String, ByVal fecha As String, ByVal estado As String, ByVal notas As String) As String
+        Try
+            Dim cadena As String = "INSERT INTO ProcesoEstado(id_proceso, id_usuario, Hs, fecha, estado, notas)" &
+                                " VALUES ('" & id_proceso & "','" & id_usuario & "','" & Hora & "','" & fecha & "','" & estado & "','" & notas & "')"
+            Return cadena
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            Return ""
+        End Try
+
+
     End Function
 
     Function UltimoRegistro(ByVal columna As String, ByVal tabla As String) As Integer
@@ -37,4 +56,8 @@
         Return conexion.ConsultaSQL("SELECT TOP(1) " & columna & " FROM " & tabla & " ORDER BY " & columna & " DESC ").Tables(0).Rows(0).Item(0)
 
     End Function
+
+
+
+
 End Module

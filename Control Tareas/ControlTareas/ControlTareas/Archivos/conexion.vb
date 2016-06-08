@@ -37,6 +37,7 @@ Module conexion
         Dim ds As New Data.DataSet
 
         Try
+
             ds.Clear()
             cnn = New SqlConnection(cadenaconexion)
             cnn.Open()

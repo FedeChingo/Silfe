@@ -4,24 +4,9 @@
     Private ListTarea As DataTable 'VARIABLE PARA GUARDAR LAS TAREAS
     Private listOpeario As DataTable 'VARIABLE PARA GUARDAR LOS OPERARIOS
 
-    Private dtUsuario As DataTable = New DataTable 'VARIABLE PARA GUARDAR LOS DATOS DE LOS USUARIOS
-
-    Private Sub ArmarDataUsuario()
+    Private dtUsuario As DataTable 'VARIABLE PARA GUARDAR LOS DATOS DE LOS USUARIOS
 
 
-        'ARMO LAS COLUMNAS     
-        dtUsuario.Columns.Add("id")
-        dtUsuario.Columns.Add("user")
-
-        'VINCULO EL DATATABLE AL DATAGRIDVIEW
-        dataGridOperador.DataSource = dtUsuario
-
-        'CONFIGURO TAMAÑO DE LAS COLUMNAS
-        dataGridOperador.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dataGridOperador.Columns(0).Width = 75
-
-
-    End Sub
 
     Private Sub IniciarProceso_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -31,12 +16,13 @@
         cmbTareas.ValueMember = "id"
         cmbTareas.DisplayMember = "detalle"
 
-
         'CARGO EL COMBO BOX CON LOS USUARIOS. LLAMO A LA FUNCION LISTADOUSUARIO
-        listOpeario = FUNCIONES.ListadoOperario
-        cmbListOperario.DataSource = dtoperador        'ASIGNO LAS PROPIEDADES
-        cmbListOperario.ValueMember = "id"
-        cmbListOperario.DisplayMember = "usuario"
+
+        comboOperario.DataSource = dtoperador
+        comboOperario.DisplayMember = "Operador"
+        comboOperario.ValueMember = "id"
+
+        comboOperario.SelectedValue = id_operador
 
         'COLOCAR FECHA Y HORA EN LOS TEXTBOX
         txtFecha.Text = Format(Now(), "dd/MM/yy")
@@ -44,17 +30,42 @@
 
         'CARGO EL DATAGRIDVIEW
         ArmarDataUsuario()
-
         CambiarColorBoton()
+
+        AgregarOperador()
+
+
+        'ARMO DTTAREAS PENDIENTES PARA VISUALIZAR LAS TAREAS QUE TIENE ESE USUARIO
+
+
+
+
+    End Sub
+
+    Private Sub ArmarDataUsuario()
+
+        dtUsuario = New DataTable
+        'ARMO LAS COLUMNAS     
+        dtUsuario.Columns.Add("id")
+        dtUsuario.Columns.Add("user")
+        dtUsuario.Clear()
+        'VINCULO EL DATATABLE AL DATAGRIDVIEW
+        dataGridOperador.DataSource = dtUsuario
+
+        dataGridOperador.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        dataGridOperador.Columns(0).Width = 60
+        dataGridOperador.Columns(0).ReadOnly = True
+
+        dataGridOperador.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        dataGridOperador.Columns(1).ReadOnly = True
 
     End Sub
 
     Private Sub AgregarOperador()
         Dim newCustomersRow As DataRow = dtUsuario.NewRow()
 
-        newCustomersRow("id") = cmbListOperario.SelectedValue
-        newCustomersRow("user") = DirectCast(cmbListOperario.SelectedItem, DataRowView).Item("usuario").ToString()
-
+        newCustomersRow("id") = comboOperario.SelectedValue
+        newCustomersRow("user") = DirectCast(comboOperario.SelectedItem, DataRowView).Item("Operador").ToString()
 
         dtUsuario.Rows.Add(newCustomersRow)
 
@@ -72,12 +83,9 @@
         End If
     End Sub
 
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
+    Private Sub btnAgregarOperario_Click(sender As Object, e As EventArgs) Handles btnAgregarOperario.Click
         AgregarOperador()
         dataGridOperador.Update()
-
     End Sub
 
     Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
@@ -100,24 +108,29 @@
             txtFecha.Text = CDate(txtFecha.Text)
         End If
 
-        'CALCULO EL ULTIMO REGISTRO
-        Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id_proceso", "proceso") + 1
 
-        conexion.ActualizarSQL(FUNCIONES.CargarProceso(UltimoRegistro, id_tarea, txtHora.Text, "00:00", txtFecha.Text, txtFecha.Text, 0, 1))
+
+        conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, ""))
+        'id proceso cargado 
+        Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id", "procesos")
 
         For i As Integer = 0 To (dtUsuario.Rows.Count - 1)
             Dim usuario = dtUsuario.Rows(i).Item("id")
 
-            conexion.ActualizarSQL(FUNCIONES.CargarProcesoUsuario(UltimoRegistro, usuario, txtHora.Text, "00:00", txtFecha.Text, txtFecha.Text, "0"))
+            conexion.ActualizarSQL(FUNCIONES.CargaUsuario(UltimoRegistro, usuario, "", 0))
+
+            conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", ""))
+
         Next
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnBorrarOperador_Click(sender As Object, e As EventArgs) Handles btnBorrarOperador.Click
         dtUsuario.Clear()
         dataGridOperador.Refresh()
         CambiarColorBoton()
-
-
     End Sub
+
+    '--------------------------------------------------------------------------------------------------------------'
+
 End Class
