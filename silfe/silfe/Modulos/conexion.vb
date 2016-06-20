@@ -3,7 +3,7 @@
 
 Module conexion
 
-    Private cadenaconexion As String = "Data Source=SILFE-PC\SQLEXPRESS;Initial Catalog=SILFE_2;Persist Security Info=True;User ID=sa;Password=Fede7122"
+    Private cadenaconexion As String = "Data Source=SILFE-PC\SQLEXPRESS;Initial Catalog=SILFE_3;Persist Security Info=True;User ID=sa;Password=Fede7122"
 
 
     Public Function ConsultaSQL(ByRef consulta As String) As DataSet
