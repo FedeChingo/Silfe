@@ -101,8 +101,11 @@
         End If
 
 
+        If conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, "", txtFecha.Text, "", "1")) = False Then
+            MsgBox("Error primera carga")
+            Exit Sub
+        End If
 
-        conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, "", txtFecha.Text, "", "1"))
         'id proceso cargado 
 
         Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id", "procesos")
@@ -112,7 +115,13 @@
 
             'conexion.ActualizarSQL(FUNCIONES.CargaUsuario(UltimoRegistro, usuario, "", 0))
 
-            conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", "", "00:00", "", 0))
+            If conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", "", "00:00", "", 0)) Then
+                MsgBox("Se cargo el proceso", MsgBoxStyle.Information)
+                Me.Close()
+            Else
+                MsgBox("Error segunda carga")
+
+            End If
 
         Next
 
