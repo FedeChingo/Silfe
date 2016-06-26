@@ -15,7 +15,7 @@ Public Class CambiarEstado
 
         Dim consultasql As String = "SELECT id, cast(FechaIni as varchar(10)) + ' ---- ' + detalle as Detalle1, id_usuario, fechaini, fechafin, hsini, hsfin, cantidad, Notas, id_estado  FROM vista_procesos WHERE id_usuario = " & id_operador & " and id_estado <> '3'  Order by FechaIni"
 
-        dtprocesos = conexion.ConsultaSQL(consultasql).Tables(0)
+        dtprocesos = conexion.ConsultaSQL(consultasql)
 
         comboProcesos.DataSource = dtprocesos
         comboProcesos.DisplayMember = "Detalle1"

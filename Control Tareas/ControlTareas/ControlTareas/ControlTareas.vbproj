@@ -87,6 +87,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Archivos\ClaseProceso.vb" />
+    <Compile Include="Archivos\ClaseUsuario.vb" />
     <Compile Include="Archivos\conexion.vb" />
     <Compile Include="Archivos\FUNCIONES.vb" />
     <Compile Include="Archivos\Varialbes.vb" />

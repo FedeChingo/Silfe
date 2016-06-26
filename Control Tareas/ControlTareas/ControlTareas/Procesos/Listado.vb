@@ -1,60 +1,48 @@
 ﻿Public Class Listado
-    Dim estadopausa As Integer = 0
-    Dim estadoactivo As Integer = 0
-    Private dtinforme As DataTable
+
+    Dim dtListado As DataTable
+
+    Private Sub CargarDataListado()
+        dtListado = New DataTable
+
+        dtListado = ConsultaSQL("select * from vista_proceso_usuario where iduser = " & id_operador)
+
+        dataListado.DataSource = dtListado
+
+
+
+    End Sub
 
     Private Sub Listado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        dtinforme = New DataTable
-
-        Dim consulta As String = "Select id, cast(FechaIni as varchar(10)) + ' - ' + cast(HsIni as varchar(10)) as Fecha, detalle, estado, id_estado from Vista_procesos where id_usuario = " & id_operador
-
-        dtinforme = conexion.ConsultaSQL(consulta).Tables(0)
-
-
-        DataGrid1.DataSource = dtinforme
-
-        'DataGrid1.Columns(0).Width = 100
-        'DataGrid1.Columns(2).Visible = False
-        'DataGrid1.Columns(3).Visible = False
-        'DataGrid1.Columns(4).Visible = False
-        'DataGrid1.Columns(5).Visible = False
-        'DataGrid1.Columns(6).Visible = False
-        'DataGrid1.Columns(8).Visible = False
-
-        DataGrid1.Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-
-        DataGrid1.RowHeadersVisible = False
-        DataGrid1.AllowUserToAddRows = False
-
-
-        CambiarColorData()
+        CargarDataListado()
 
 
     End Sub
 
-    Private Sub CambiarColorData()
+    Private Sub DataGrid1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs)
 
 
-        txtProcActivo.Text = estadoactivo.ToString
-        txtProcPausa.Text = estadopausa.ToString
-
-    End Sub
-
-    Private Sub DataGrid1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DataGrid1.CellFormatting
-
-
-        For Each fila As DataGridViewRow In DataGrid1.Rows
-            If fila.Cells("id_estado").Value = "1" Then
+        For Each fila As DataGridViewRow In datalistado.Rows
+            If fila.Cells("estado").Value = "iniciado" Then
                 fila.DefaultCellStyle.BackColor = Color.Green
-            ElseIf fila.Cells("id_estado").Value = "2" Then
+            ElseIf fila.Cells("estado").Value = "Pausado" Then
                 fila.DefaultCellStyle.BackColor = Color.Yellow
             Else
                 fila.DefaultCellStyle.BackColor = Color.Red
-
             End If
 
         Next
+
+    End Sub
+
+    Private Sub btnNuevoProceso_Click(sender As Object, e As EventArgs) Handles btnNuevoProceso.Click
+
+        Dim frm As New IniciarProceso
+
+        frm.ShowDialog()
+
+
 
     End Sub
 End Class

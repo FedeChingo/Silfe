@@ -28,6 +28,7 @@ Partial Class Inicio
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -43,7 +44,7 @@ Partial Class Inicio
         'btnIngreso
         '
         Me.btnIngreso.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnIngreso.Location = New System.Drawing.Point(46, 252)
+        Me.btnIngreso.Location = New System.Drawing.Point(46, 280)
         Me.btnIngreso.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.btnIngreso.Name = "btnIngreso"
         Me.btnIngreso.Size = New System.Drawing.Size(106, 65)
@@ -73,7 +74,7 @@ Partial Class Inicio
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(164, 252)
+        Me.Button1.Location = New System.Drawing.Point(168, 280)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(106, 65)
@@ -84,7 +85,7 @@ Partial Class Inicio
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(282, 252)
+        Me.Button2.Location = New System.Drawing.Point(283, 280)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(106, 65)
@@ -92,11 +93,21 @@ Partial Class Inicio
         Me.Button2.Text = "CAMBIAR ESTADO"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(46, 237)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(343, 37)
+        Me.Button3.TabIndex = 4
+        Me.Button3.Text = "INGRESAR"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(446, 379)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button2)
@@ -121,4 +132,5 @@ Partial Class Inicio
     Friend WithEvents Label1 As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class

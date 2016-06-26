@@ -4,7 +4,7 @@
 
 
         cmbListOperador.DataSource = dtoperador
-        cmbListOperador.DisplayMember = "Operador"
+        cmbListOperador.DisplayMember = "Nombre"
         cmbListOperador.ValueMember = "id"
 
     End Sub
@@ -24,5 +24,11 @@
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         id_operador = cmbListOperador.SelectedValue
         CambiarEstado.ShowDialog()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        id_operador = cmbListOperador.SelectedValue
+        Listado.ShowDialog()
+
     End Sub
 End Class

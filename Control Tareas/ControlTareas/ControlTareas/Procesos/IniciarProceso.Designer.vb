@@ -34,6 +34,7 @@ Partial Class IniciarProceso
         Me.dataGridOperador = New System.Windows.Forms.DataGridView()
         Me.btnBorrarOperador = New System.Windows.Forms.Button()
         Me.comboOperario = New System.Windows.Forms.ComboBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dataGridOperador, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -156,12 +157,22 @@ Partial Class IniciarProceso
         Me.comboOperario.Size = New System.Drawing.Size(198, 23)
         Me.comboOperario.TabIndex = 13
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(241, 367)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 14
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'IniciarProceso
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(524, 361)
+        Me.ClientSize = New System.Drawing.Size(524, 427)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.comboOperario)
         Me.Controls.Add(Me.dataGridOperador)
         Me.Controls.Add(Me.btnBorrarOperador)
@@ -200,4 +211,5 @@ Partial Class IniciarProceso
     Friend WithEvents dataGridOperador As DataGridView
     Friend WithEvents btnBorrarOperador As Button
     Friend WithEvents comboOperario As ComboBox
+    Friend WithEvents Button1 As Button
 End Class

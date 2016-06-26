@@ -4,7 +4,10 @@
     Private ListTarea As DataTable 'VARIABLE PARA GUARDAR LAS TAREAS
     Private listOpeario As DataTable 'VARIABLE PARA GUARDAR LOS OPERARIOS
 
-    Private dtUsuario As DataTable 'VARIABLE PARA GUARDAR LOS DATOS DE LOS USUARIOS
+    Private dtUsuario As DataTable 'VARIABLE PARA GUARDAR LOS DATOS DE LOS USUARIOS}
+
+    Private user As ClaseUsuario = New ClaseUsuario
+    Private proc As ClaseProceso = New ClaseProceso
 
     Private Sub IniciarProceso_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -12,12 +15,12 @@
         ListTarea = FUNCIONES.ListadoTarea
         cmbTareas.DataSource = ListTarea 'ASIGNO LAS PROPIEDADES
         cmbTareas.ValueMember = "id"
-        cmbTareas.DisplayMember = "detalle"
+        cmbTareas.DisplayMember = "Nombre"
 
         'CARGO EL COMBO BOX CON LOS USUARIOS. LLAMO A LA FUNCION LISTADOUSUARIO
 
         comboOperario.DataSource = dtoperador
-        comboOperario.DisplayMember = "Operador"
+        comboOperario.DisplayMember = "Nombre"
         comboOperario.ValueMember = "id"
 
         comboOperario.SelectedValue = id_operador
@@ -57,7 +60,7 @@
         Dim newCustomersRow As DataRow = dtUsuario.NewRow()
 
         newCustomersRow("id") = comboOperario.SelectedValue
-        newCustomersRow("user") = DirectCast(comboOperario.SelectedItem, DataRowView).Item("Operador").ToString()
+        newCustomersRow("user") = DirectCast(comboOperario.SelectedItem, DataRowView).Item("Nombre").ToString()
 
         dtUsuario.Rows.Add(newCustomersRow)
 
@@ -80,59 +83,44 @@
         dataGridOperador.Update()
     End Sub
 
-    Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
-        'VALIDAR LA HORA 
-        If IsDate(txtHora.Text) = False Then
-            MsgBox("Hora No válida", vbCritical, "SIL-FE")
-            Exit Sub
-        Else
-            txtHora.Text = CDate(txtHora.Text)
-        End If
-
-        'VALIDAR ID_TAREA Y CREO VARIABLE PARA GUARDAR
-        Dim id_tarea As Integer = cmbTareas.SelectedValue
-
-        'VALIDAR FECHA
-        If IsDate(txtFecha.Text) = False Then
-            MsgBox("Fecha No válida", vbCritical, "SIL-FE")
-            Exit Sub
-        Else
-            txtFecha.Text = CDate(txtFecha.Text)
-        End If
-
-
-        If conexion.ActualizarSQL(FUNCIONES.CargarProceso(id_tarea, 0, "", txtFecha.Text, "", "1")) = False Then
-            MsgBox("Error primera carga")
-            Exit Sub
-        End If
-
-        'id proceso cargado 
-
-        Dim UltimoRegistro As Integer = FUNCIONES.UltimoRegistro("id", "procesos")
-
-        For i As Integer = 0 To (dtUsuario.Rows.Count - 1)
-            Dim usuario = dtUsuario.Rows(i).Item("id")
-
-            'conexion.ActualizarSQL(FUNCIONES.CargaUsuario(UltimoRegistro, usuario, "", 0))
-
-            If conexion.ActualizarSQL(FUNCIONES.CargaProcesoEstado(UltimoRegistro, usuario, txtHora.Text, txtFecha.Text, "1", "", "00:00", "", 0)) Then
-                MsgBox("Se cargo el proceso", MsgBoxStyle.Information)
-                Me.Close()
-            Else
-                MsgBox("Error segunda carga")
-
-            End If
-
-        Next
-
-    End Sub
-
     Private Sub btnBorrarOperador_Click(sender As Object, e As EventArgs) Handles btnBorrarOperador.Click
         dtUsuario.Clear()
         dataGridOperador.Refresh()
         CambiarColorBoton()
     End Sub
 
-    '--------------------------------------------------------------------------------------------------------------'
+    Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
 
+        Try
+            proc.id_estado = "1"
+            proc.id_tarea = cmbTareas.SelectedValue
+            proc.fecha_inicio = CDate(txtFecha.Text + " " + txtHora.Text)
+            proc.cantidad = "0"
+            proc.notas = ""
+
+            proc.CargarProceso()
+
+            'Busco y guardo el ID del proceso cargado recientemente.
+
+            proc.id = FUNCIONES.UltimoRegistro("id", "procesos")
+
+            For i As Integer = 0 To (dtUsuario.Rows.Count - 1)
+
+                Dim usuario = dtUsuario.Rows(i).Item("id")
+                proc.CargarProcUsuario(usuario)
+
+            Next
+        Catch ex As Exception
+
+        End Try
+
+
+
+
+
+
+
+
+
+    End Sub
 End Class
